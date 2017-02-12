@@ -1,41 +1,56 @@
 <template>
-  <div id="current-todos" class="container">
-    <h3 v-if="todos.length > 0">Current({{todos.length}})</h3>
-    <ul class="list-group">
-      <li class="list-group-item" v-for="todo in todos">
-        {{todo.body}}
-        <div class="btn-group">
-          <button type="button" @click="edit(todo)" class="btn btn-default btn-sm">
-            <span class="glyphicon glyphicon-edit"></span> Edit
-          </button>
-          <button type="button" @click="complete(todo)" class="btn btn-default btn-sm">
-            <span class="glyphicon glyphicon-ok-circle"></span> Complete
-          </button>
-          <button type="button" @click="remove(todo)" class="btn btn-default btn-sm">
-            <span class="glyphicon glyphicon-remove-circle"></span> Remove
-          </button>
-        </div>
-      </li>
-    </ul>
+  <div id="current-todo" class="row">
+    <div class="col-md-6">
+      <h3 v-if="todos.length > 0">Current({{todos.length}})</h3>
+      <ul class="list-group">
+        <li class="list-group-item" v-for="todo in todos">
+          {{todo.body}}
+          <div class="btn-group">
+            <button type="button" @click="edit(todo)" class="btn btn-primary">
+              <span class="glyphicon glyphicon-edit"></span> Edit
+            </button>
+            <button type="button" @click="complete(todo)" class="btn btn-success">
+              <span class="glyphicon glyphicon-ok-circle"></span> Complete
+            </button>
+            <button type="button" @click="remove(todo)" class="btn btn-danger">
+              <span class="glyphicon glyphicon-remove-circle"></span> Remove
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
+
+
 <script>
+  import {mapGetters, mapActions} from 'vuex'
   export default{
+    name: 'CurrentToDo',
     methods: {
+      ...mapActions(
+        [
+          'editTodo',
+          'completeTodo',
+          'removeTodo'
+        ]
+      ),
       edit: function (todo) {
-        this.$store.dispatch('editTodo', todo)
+        this.editTodo(todo)
       },
       complete: function (todo) {
-        this.$store.dispatch('completeTodo', todo)
+        this.completeTodo(todo)
       },
       remove: function (todo) {
-        this.$store.dispatch('removeTodo', todo)
+        this.removeTodo(todo)
       }
     },
     computed: {
-      todos: function () {
-        return this.$store.getters.todos
-      }
+      ...mapGetters(
+        [
+          'todos'
+        ]
+      )
     }
   }
 </script>

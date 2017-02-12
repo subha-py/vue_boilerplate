@@ -1,27 +1,43 @@
 <template>
-  <div id="get-todo" class="container">
-    <input class="form-control"
+  <div id="get-todo" class="row">
+    <div class="col-md-6">
+    <input @keydown.enter="addTodos"
+           class="form-control"
            :value="newTodo"
-           @change="getTodo"
+           @keypress="getTodos"
            placeholder="I need to...">
-    <button class="btn btn-primary" @click="addTodo">Add Todo</button>
+    <button class="btn btn-primary btn-sm" @click="addTodos">Add Todo</button>
+      </div>
   </div>
 </template>
+
 <script>
+  import {mapGetters, mapActions} from 'vuex'
+
   export default {
     methods: {
-      getTodo: function (e) {
-        this.$store.dispatch('getTodo', e.target.value)
+      name: 'GetToDo',
+      ...mapActions(
+        [
+          'getTodo',
+          'addTodo',
+          'clearTodo'
+        ]
+      ),
+      getTodos: function (e) {
+        this.getTodo(e.target.value)
       },
-      addTodo: function () {
-        this.$store.dispatch('addTodo')
-        this.$store.dispatch('clearTodo')
+      addTodos: function () {
+        this.addTodo()
+        this.clearTodo()
       }
     },
     computed: {
-      newTodo: function () {
-        return this.$store.getters.newTodo
-      }
+      ...mapGetters(
+        [
+          'newTodo'
+        ]
+      )
     }
   }
 </script>
