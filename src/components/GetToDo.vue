@@ -5,7 +5,7 @@
         <input @keydown.enter="addTodos"
                class="form-control"
                :value="newTodo"
-               @keypress="getTodos"
+               @keyup="getTodos"
                placeholder="I need to...">
         <button class="btn btn-primary btn-sm" @click="addTodos">Add Todo</button>
       </div>
