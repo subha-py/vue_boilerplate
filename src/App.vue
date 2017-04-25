@@ -12,12 +12,9 @@
 </template>
 
 <script>
-  import Vue from 'vue'
-  import VueMaterial from 'vue-material'
   import GetToDo from './components/GetToDo'
   import CurrentToDo from './components/CurrentToDo'
   import CompletedToDo from './components/CompletedToDo'
-
 
   export default {
     name: 'app',
