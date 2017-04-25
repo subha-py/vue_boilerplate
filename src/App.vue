@@ -18,7 +18,6 @@
   import CurrentToDo from './components/CurrentToDo'
   import CompletedToDo from './components/CompletedToDo'
 
-  Vue.use(VueMaterial)
 
   export default {
     name: 'app',
